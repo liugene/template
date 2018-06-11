@@ -1,26 +1,15 @@
 <?php
-
-/**
- * --------------------------------------------------*
- *  LhinkPHP遵循Apache2开源协议发布  Link ALL Thing  *
- * --------------------------------------------------*
- *  @author LiuJun     Mail-To:liujun2199@vip.qq.com *
- * --------------------------------------------------*
- * Copyright (c) 2017 LinkPHP. All rights reserved.  *
- * --------------------------------------------------*
- *                   Smarty初始化类                  *
- * --------------------------------------------------*
- */
  
- namespace linkphp\template\view\engine;
- class Smarty{
+namespace linkphp\template\engine;
+
+class Smarty{
     /**
      * 模板输出变量
-     * @var tVar
+     * @var $_tVar
      * @access protected
-     */ 
+     */
     protected $_tVar = [];
-    
+
     public function init($tempfile){
         $smarty = new \Smarty();
         $smarty->caching = C('TEMP_CACHE'); //设置是否启用缓存
@@ -32,13 +21,13 @@
         $smarty->assign($this->_tVar); //传入模板输出变量
         $smarty->display($tempfile);
     }
-    
+
     /**
      * 模板变量赋值  公共public方法
-     * @param $name 
+     * @param $name
      * @param $value
      */
     public function assign($name,$value){
         $this->_tVar[$name] = $value;
     }
- }
+}
