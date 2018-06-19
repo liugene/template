@@ -46,7 +46,7 @@ class Link extends Engine
         $filename = CACHE_PATH . 'view/' . $template . $this->config['default_theme_suffix'];
         $this->fetch($filename);
         //加载视图文件
-        $this->storage()->read($this->temp_c, $this->tVar);
+        return $this->storage()->read($this->temp_c, $this->tVar);
         // 模板阵列变量分解成为独立变量
 //        extract($this->tVar);
 //        if(file_exists($this->temp_c)){

@@ -19,7 +19,6 @@ class Compiler
 
     public function parser(Link $link)
     {
-
         $content = $this->_tag->parserTag($link->compiler_file);
         $pregRule_L = '#' . $link->getConfig('set_left_limiter') . '#';
         $pregRule_R = '#' . $link->getConfig('set_right_limiter') . '#';
@@ -31,7 +30,7 @@ class Compiler
         $replace = $link->getConfig('tpl_replace_string');
         $content = str_replace(array_keys($replace), array_values($replace), $content);
         // 添加安全代码及模板引用记录
-        $content = '<?php if (!defined(\'LINKPHP_VERSION\')) exit(); /*' . serialize($link) . '*/ ?>' . "\n" . $content;
+        $content = '<?php if (!defined(\'LINKPHP_VERSION\')) exit(); /*' . serialize('') . '*/ ?>' . "\n" . $content;
         return $content;
     }
 

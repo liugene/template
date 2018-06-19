@@ -21,7 +21,7 @@ class View
      */
     private $replace = [];
 
-    public function __construct(HttpRequest $httpRequest, $engine, $replace)
+    public function __construct(HttpRequest $httpRequest, $replace)
     {
         $root = $httpRequest->root();
         $base = $httpRequest->baseFile();
@@ -69,7 +69,7 @@ class View
         if (isset($options['type'])) {
             unset($options['type']);
         }
-        $this->_engine = new $class($options);
+        $this->_engine = app()->get($class);
         return $this;
     }
 
@@ -80,7 +80,20 @@ class View
      */
     public function display($template)
     {
-        return $this->_engine->display($template);
+        // 页面缓存
+        ob_start();
+        ob_implicit_flush(0);
+        // 渲染输出
+        try {
+            $this->_engine->display($template);
+        } catch (\Exception $e) {
+            ob_end_clean();
+            throw $e;
+        }
+
+        // 获取并清空缓存
+        $content = ob_get_clean();
+        return $content;
     }
 
     /**
