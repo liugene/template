@@ -45,16 +45,10 @@ class Link extends Engine
     {
         $filename = CACHE_PATH . 'view/' . $template . $this->config['default_theme_suffix'];
         $this->fetch($filename);
+
         //加载视图文件
-        return $this->storage()->read($this->temp_c, $this->tVar);
-        // 模板阵列变量分解成为独立变量
-//        extract($this->tVar);
-//        if(file_exists($this->temp_c)){
-//            $str = file_get_contents($this->temp_c);
-//            return str_replace(["\n","\r","\t"],"",$str);
-//        } else {
-//            throw new Exception($filename . '视图文件不存在');
-//        }
+        $this->storage()->read($this->temp_c, $this->tVar);
+
     }
     /**
      * 模板赋值输出方法
